@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    redirect()->route('photos.index');
 });
+
+Route::resource('photos', PhotoController::class);
