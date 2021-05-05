@@ -10,6 +10,14 @@ class Truck extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'brand',
+        'year',
+        'owner',
+        'owners_count',
+        'comments' 
+    ];
+
     /**
      * @param int $value
      * @return string|null

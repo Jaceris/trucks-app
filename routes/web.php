@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TruckController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    redirect()->route('photos.index');
-});
-
-Route::resource('photos', PhotoController::class);
+Route::redirect('/', '/truck');
+Route::resource('truck', TruckController::class);

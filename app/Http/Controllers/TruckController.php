@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\TruckForm;
+use App\Models\Truck;
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class TruckController extends Controller
 {
@@ -11,9 +14,14 @@ class TruckController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FormBuilder $formBuilder)
     {
-       //
+        $form = $formBuilder->create(TruckForm::class, [
+            'method' => 'POST',
+            'url' => route('truck.store')
+        ]);
+
+        return view('truck.index', compact('form'));
     }
 
     /**
@@ -32,53 +40,20 @@ class TruckController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormBuilder $formBuilder, Request $request)
     {
-       //
-    }
+       //TODO ONLY ROUTES
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-       //
-    }
+       $form = $formBuilder->create(TruckForm::class);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-       //
-    }
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-       //
-    }
+        Truck::create($form->getFieldValues());
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-       //
+        session()->flash('message', __('Truck created successfully!'));
+        
+        return redirect()->route("tags.index");
     }
 }
