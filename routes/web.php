@@ -15,4 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/', '/truck');
-Route::resource('truck', TruckController::class);
+
+Route::resource('truck', TruckController::class)->only([
+    'index', 'create', 'store'
+]);

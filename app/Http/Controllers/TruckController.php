@@ -21,7 +21,10 @@ class TruckController extends Controller
             'url' => route('truck.store')
         ]);
 
-        return view('truck.index', compact('form'));
+        return view('truck.index')->with([
+           'form' => $form,
+           'trucks' => Truck::all()
+        ]);
     }
 
     /**
