@@ -45,8 +45,6 @@ class TruckController extends Controller
      */
     public function store(FormBuilder $formBuilder, Request $request)
     {
-       //TODO ONLY ROUTES
-
        $form = $formBuilder->create(TruckForm::class);
 
         if (!$form->isValid()) {
@@ -57,6 +55,6 @@ class TruckController extends Controller
 
         session()->flash('message', __('Truck created successfully!'));
         
-        return redirect()->route("tags.index");
+        return redirect()->route("truck.index");
     }
 }

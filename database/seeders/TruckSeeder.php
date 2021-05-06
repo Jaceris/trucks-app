@@ -15,7 +15,7 @@ class TruckSeeder extends Seeder
     public function run()
     {
         Truck::factory()
-                ->count(50)
+                ->count(20)
                 ->create();
     }
 }

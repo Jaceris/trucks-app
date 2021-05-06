@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    {!! form($form) !!}
+<div class="container">
+  @include('msg.flash')
+  {!! form($form) !!}
 
     <table class="table">
   <thead>
@@ -27,4 +29,5 @@
     @endforeach
   </tbody>
 </table>
+</div>
 @endsection
