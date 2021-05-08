@@ -17,8 +17,10 @@ class TruckController extends Controller
      */
     public function index(TruckFilter $truckFilter, Request $request)
     {
+        $request->flash();
+
         return view('truck.index')->with([
-           'trucks' => $truckFilter($request)->paginate(20),
+           'trucks' => $truckFilter($request)->paginate(config('app.pages')),
            'brands' => config('truck.brands'),
            'sorts'  => config('truck.sorts')
         ]);

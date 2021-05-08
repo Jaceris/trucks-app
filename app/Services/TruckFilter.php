@@ -17,7 +17,7 @@ class TruckFilter
         $query = Truck::query();
 
         // Search truck by brand
-        if ($filters->input('brand')) {
+        if (!is_null($filters->input('brand'))) {
             $query->ofBrand($filters->input('brand'));
         }
         
