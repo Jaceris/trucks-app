@@ -14,7 +14,7 @@ class TruckForm extends Form
             ->add('brand', 'select', [
                 'choices' => config('truck.brands'),
                 'empty_value' => __('Select truck brand'),
-                'rules' => ['required', 'integer']
+                'rules' => ['required', 'integer'],
             ])
             ->add('year', 'number', [
                 'rules' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
@@ -28,6 +28,8 @@ class TruckForm extends Form
             ->add('comments', 'textarea', [
                 'rules' => ['string', 'nullable'],
             ])
-            ->add('submit', 'submit', ['label' => __('Create new truck')]);
+            ->add('submit', 'submit', [
+                'label' => __('Create new truck'),
+            ]);
     }
 }

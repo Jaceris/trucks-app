@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Forms\TruckForm;
 use App\Models\Truck;
+use App\Services\TruckFilter;
 use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\FormBuilder;
 
@@ -14,16 +15,12 @@ class TruckController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(FormBuilder $formBuilder)
+    public function index(TruckFilter $truckFilter, Request $request)
     {
-        $form = $formBuilder->create(TruckForm::class, [
-            'method' => 'POST',
-            'url' => route('truck.store')
-        ]);
-
         return view('truck.index')->with([
-           'form' => $form,
-           'trucks' => Truck::all()
+           'trucks' => $truckFilter->apply($request)->paginate(20),
+           'brands' => config('truck.brands'),
+           'sorts' => config('truck.sorts')
         ]);
     }
 
@@ -32,9 +29,16 @@ class TruckController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FormBuilder $formBuilder)
     {
-       //
+        $form = $formBuilder->create(TruckForm::class, [
+            'method' => 'POST',
+            'url' => route('truck.store')
+        ]);
+      
+        return view('truck.create')->with([
+           'form' => $form,
+        ]);
     }
 
     /**
