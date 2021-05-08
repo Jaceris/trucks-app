@@ -26,6 +26,6 @@
       @endforeach
     </tbody>
   </table>
-  {{ $trucks->links()}}
+  {{ $trucks->appends(request()->input())->links() }}
 </div>
 @endsection

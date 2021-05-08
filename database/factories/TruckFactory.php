@@ -22,11 +22,11 @@ class TruckFactory extends Factory
     public function definition()
     {
         return [
-            'brand' => array_rand(config('truck.brands'), 1),
-            'year' => $this->faker->numberBetween(1900, date("Y")),
-            'owner' => $this->faker->name(),
+            'brand'        => array_rand(config('truck.brands'), 1),
+            'year'         => $this->faker->numberBetween(config('truck.min_year'), date("Y")),
+            'owner'        => $this->faker->name(),
             'owners_count' => $this->faker->optional()->numberBetween(1, 10),
-            'comments' => $this->faker->optional()->text(50),
+            'comments'     => $this->faker->optional()->text(50),
         ];
     }
 }

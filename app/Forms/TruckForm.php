@@ -12,12 +12,12 @@ class TruckForm extends Form
     {
         $this
             ->add('brand', 'select', [
-                'choices' => config('truck.brands'),
+                'choices'     => config('truck.brands'),
                 'empty_value' => __('Select truck brand'),
-                'rules' => ['required', 'integer'],
+                'rules'       => ['required', 'integer'],
             ])
             ->add('year', 'number', [
-                'rules' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
+                'rules' => ['required', 'integer', 'min:'.config('truck.min_year'), 'max:' . date('Y')],
             ])
             ->add('owner', 'text', [
                 'rules' => [new AlphaSpaces, new TwoOrMoreWords],

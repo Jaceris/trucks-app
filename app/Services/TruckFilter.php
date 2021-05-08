@@ -10,45 +10,35 @@ class TruckFilter
     /**
      * Filter and sort trucks
      *
-     * @return App\Models\Truck
+     * @return App\Models\Truck query
      */
-    public function apply(Request $filters)
+    public function __invoke(Request $filters)
     {
         $query = Truck::query();
 
         // Search truck by brand
         if ($filters->input('brand')) {
-            $query->where('brand', $filters->input('brand'));
-        }
-
-        // Search by min production years
-        if ($filters->input('year_from')) {
-            $query->where('year', '>=', $filters->input('year_from'));
+            $query->ofBrand($filters->input('brand'));
         }
         
-        // Search by max production years
-        if ($filters->input('year_to')) {
-            $query->where('year', '<=', $filters->input('year_to'));
+        // Search by min production years
+        if ($filters->input('year_from') || $filters->input('year_to')) {
+            $query->ofBetweenYear($filters->input('year_from'), $filters->input('year_to'));
         }
 
-        // Search truck owner
+        // // Search by truck owner
         if ($filters->input('owner')) {
-            $query->where('owner', 'like', '%'.$filters->input('owner').'%');
+            $query->ofOwner($filters->input('owner'));
         }
 
-        // Search by min owners count
-        if ($filters->input('owners_count_from')) {
-            $query->where('owners_count', '>=', $filters->input('owners_count_from'));
+        // // Search by owners count
+        if ($filters->input('owners_count_from') || $filters->input('owners_count_to')) {
+            $query->ofBetweenOwnersCount($filters->input('owners_count_from'), $filters->input('owners_count_to'));
         }
 
-        // Search by max owners count
-        if ($filters->input('owners_count_to')) {
-            $query->where('owners_count', '<=', $filters->input('owners_count_to'));
-        }
-
-        // Sort by
-        if ($filters->input('sortBy') && $filters->input('sortType')) {
-            $query->orderBy($filters->input('sortBy'), $filters->input('sortType'));
+        // // Sort by
+        if ($filters->input('sort_by') && $filters->input('sort_type')) {
+            $query->orderBy($filters->input('sort_by'), $filters->input('sort_type'));
         }
 
         return $query;

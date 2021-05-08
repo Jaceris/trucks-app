@@ -2,6 +2,8 @@
 
 return [
 
+    'min_year' => 1900,
+
     'brands' => [
         0 => 'Volvo',
         1 => 'VAZ',

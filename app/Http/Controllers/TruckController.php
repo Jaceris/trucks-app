@@ -18,9 +18,9 @@ class TruckController extends Controller
     public function index(TruckFilter $truckFilter, Request $request)
     {
         return view('truck.index')->with([
-           'trucks' => $truckFilter->apply($request)->paginate(20),
+           'trucks' => $truckFilter($request)->paginate(20),
            'brands' => config('truck.brands'),
-           'sorts' => config('truck.sorts')
+           'sorts'  => config('truck.sorts')
         ]);
     }
 
@@ -33,7 +33,7 @@ class TruckController extends Controller
     {
         $form = $formBuilder->create(TruckForm::class, [
             'method' => 'POST',
-            'url' => route('truck.store')
+            'url'    => route('truck.store')
         ]);
       
         return view('truck.create')->with([

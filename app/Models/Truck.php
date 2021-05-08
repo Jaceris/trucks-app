@@ -22,8 +22,37 @@ class Truck extends Model
      * @param int $value
      * @return string|null
      */
-    public function getBrandAttribute(int $value)
+    public function getBrandAttribute($value)
     {
         return Arr::get(config('truck.brands'), $value);
+    }
+
+    public function scopeOfBrand($query, int $brand_id)
+    {
+        return $query->where('brand', $brand_id);
+    }
+
+    public function scopeOfOwner($query, string $owner_name)
+    {
+        return $query->where('owner', 'like', '%'.$owner_name.'%');
+    }
+
+    public function scopeOfBetweenYear($query, $year_from, $year_to)
+    {
+        $year_from = $year_from ?: config('truck.min_year');
+        $year_to = $year_to ?: date('Y');
+       
+        return $query->whereBetween('year', [$year_from, $year_to]);
+    }
+
+    public function scopeOfBetweenOwnersCount($query, $count_from, $count_to)
+    {
+        $count_from = $count_from ?: 0;
+
+        if(!$count_to) {
+            return $query->where('owners_count', '<=', $count_to );
+        }
+
+        return $query->whereBetween('owners_count', [$count_from, $count_to]);
     }
 }

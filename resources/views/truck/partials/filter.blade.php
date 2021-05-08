@@ -15,13 +15,13 @@
     <div class="col-lg-2">
       <div class="form-group">
         <label for="year_from" class="control-label">{{ __('Year from') }}</label>
-        <input class="form-control" step="1" min="1900" max="2021" name="year_from" type="number" id="year_from">
+        <input class="form-control" step="1" min="{{ config('truck.min_year') }}" max="date('Y')" name="year_from" type="number" id="year_from">
       </div>
     </div>
     <div class="col-lg-2">
       <div class="form-group">
         <label for="year_to" class="control-label">{{ __('Year to') }}</label>
-        <input class="form-control" step="1" min="1900" max="2021" name="year_to" type="number" id="year_to">
+        <input class="form-control" step="1" min="{{ config('truck.min_year') }}" max="{{ date('Y') }}" name="year_to" type="number" id="year_to">
       </div>
     </div>
     <div class="col-lg-6">
@@ -44,8 +44,8 @@
     </div>
     <div class="col-lg-2">
       <div class="form-group">
-        <label for="sortBy" class="control-label">{{ __('Sort by') }}</label>
-        <select class="form-control" id="sortBy" name="sortBy">
+        <label for="sort_by" class="control-label">{{ __('Sort by') }}</label>
+        <select class="form-control" id="sort_by" name="sort_by">
             @foreach($sorts as $value)
               <option value="{{ $value }}">{{ $value }}</option>
             @endforeach
@@ -54,8 +54,8 @@
     </div>
     <div class="col-lg-2">
       <div class="form-group">
-        <label for="sortType" class="control-label">{{ __('Sort type') }}</label>
-        <select class="form-control" id="sortType" name="sortType">
+        <label for="sort_type" class="control-label">{{ __('Sort type') }}</label>
+        <select class="form-control" id="sort_type" name="sort_type">
           <option value="asc" selected="selected">{{ __('Ascending') }}</option>
           <option value="desc" >{{ __('Descending') }}</option>
         </select>
