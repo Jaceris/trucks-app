@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/truck');
 
+Route::post('/truck/filter', [TruckController::class, 'filter'])->name('truck.filter');
 Route::resource('truck', TruckController::class)->only([
     'index', 'create', 'store'
 ]);

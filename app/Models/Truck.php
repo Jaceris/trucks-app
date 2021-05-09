@@ -51,7 +51,7 @@ class Truck extends Model
         $count_from = $count_from ?: 0;
 
         if(!$count_to) {
-            return $query->where('owners_count', '<=', $count_to );
+            return $query->where('owners_count', '>=', $count_from );
         }
 
         return $query->whereBetween('owners_count', [$count_from, $count_to]);
