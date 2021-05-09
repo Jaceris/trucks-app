@@ -14,19 +14,37 @@ class TruckForm extends Form
             ->add('brand', 'select', [
                 'choices'     => config('truck.brands'),
                 'empty_value' => __('Select truck brand'),
-                'rules'       => ['required', 'integer'],
+                'rules'       => [
+                    'required', 
+                    'integer'
+                ],
             ])
             ->add('year', 'number', [
-                'rules' => ['required', 'integer', 'min:'.config('truck.min_year'), 'max:' . date('Y')],
+                'rules' => [
+                    'required',
+                    'integer', 
+                    'min:'.config('truck.min_year'),
+                    'max:' . date('Y')
+                ],
             ])
             ->add('owner', 'text', [
-                'rules' => [new AlphaSpaces, new TwoOrMoreWords],
+                'rules' => [
+                    new AlphaSpaces, 
+                    new TwoOrMoreWords
+                ],
             ])
             ->add('owners_count', 'number', [
-                'rules' => ['integer', 'min:1', 'nullable'],
+                'rules' => [
+                    'integer', 
+                    'min:0', 
+                    'nullable'
+                ],
             ])
             ->add('comments', 'textarea', [
-                'rules' => ['string', 'nullable'],
+                'rules' => [
+                    'string', 
+                    'nullable'
+                ],
             ])
             ->add('submit', 'submit', [
                 'label' => __('Create new truck'),

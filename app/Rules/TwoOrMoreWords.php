@@ -25,6 +25,6 @@ class TwoOrMoreWords implements Rule
      */
     public function message()
     {
-        return 'You must enter atleast 2 words';
+        return __('You must enter at least 2 words');
     }
 }

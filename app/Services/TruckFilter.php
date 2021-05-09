@@ -16,29 +16,40 @@ class TruckFilter
     {
         $query = Truck::query();
 
-        // Search truck by brand
-        if (!is_null($filters->input('brand'))) {
+        // Search by brand
+        if ($filters->input('brand')) {
             $query->ofBrand($filters->input('brand'));
         }
         
-        // Search by min production years
+        // Search by between production year
         if ($filters->input('year_from') || $filters->input('year_to')) {
             $query->ofBetweenYear($filters->input('year_from'), $filters->input('year_to'));
         }
 
-        // // Search by truck owner
+        // Search by truck owner
         if ($filters->input('owner')) {
             $query->ofOwner($filters->input('owner'));
         }
 
-        // // Search by owners count
+        // Search by between owners count
         if ($filters->input('owners_count_from') || $filters->input('owners_count_to')) {
             $query->ofBetweenOwnersCount($filters->input('owners_count_from'), $filters->input('owners_count_to'));
         }
-
-        // // Sort by
+        
+        // Sort by
         if ($filters->input('sort_by') && $filters->input('sort_type')) {
-            $query->orderBy($filters->input('sort_by'), $filters->input('sort_type'));
+            if($filters->input('sort_by') == 'brand') {
+
+                //sorting
+                $brands = config('truck.brands');
+                $filters->input('sort_type') == 'asc' ? asort($brands) : arsort($brands);
+                $sort_order = implode(',', array_keys($brands));
+
+                $query->orderByRaw("FIELD(brand,$sort_order)");
+            }
+            else {
+                $query->orderBy($filters->input('sort_by'), $filters->input('sort_type'));
+            }
         }
 
         return $query;

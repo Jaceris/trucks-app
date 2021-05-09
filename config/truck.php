@@ -5,10 +5,10 @@ return [
     'min_year' => 1900,
 
     'brands' => [
-        0 => 'Volvo',
-        1 => 'VAZ',
-        2 => 'Mercedes',
-        3 => 'GAZ'
+        1 => 'Volvo',
+        2 => 'VAZ',
+        3 => 'Mercedes',
+        4 => 'GAZ'
     ],
 
     'sorts' => [

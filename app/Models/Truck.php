@@ -28,12 +28,12 @@ class Truck extends Model
         return $this->attributes['owner'] = ucwords(strtolower($value));
     }
 
-    public function scopeOfBrand($query, int $brand_id)
+    public function scopeOfBrand($query, $brand_id)
     {
         return $query->where('brand', $brand_id);
     }
 
-    public function scopeOfOwner($query, string $owner_name)
+    public function scopeOfOwner($query, $owner_name)
     {
         return $query->where('owner', 'like', '%'.$owner_name.'%');
     }
@@ -48,7 +48,9 @@ class Truck extends Model
 
     public function scopeOfBetweenOwnersCount($query, $count_from, $count_to)
     {
-        $count_from = $count_from ?: 0;
+        if(!$count_from) {
+            return $query->where('owners_count', '<=', $count_to)->orWhere('owners_count', null);
+        }
 
         if(!$count_to) {
             return $query->where('owners_count', '>=', $count_from );

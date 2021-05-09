@@ -25,6 +25,6 @@ class AlphaSpaces implements Rule
      */
     public function message()
     {
-        return 'Words must be made of only alphabetic characters, spaces and hyphens';
+        return __('Words must be made of only alphabetic characters, spaces and hyphens');
     }
 }

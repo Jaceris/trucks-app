@@ -26,16 +26,42 @@ class TruckFilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'brand' => ['integer', 'nullable'],
-            'year_from' => ['integer', 'nullable', 'min:'.config('truck.min_year'), 'max:' . date('Y')],
-            'year_to' => ['integer', 'nullable', 'min:'.config('truck.min_year'), 'max:' . date('Y'), 'gte:year_from'],
-            'owner' => ['string', 'nullable', new AlphaSpaces],
-            'owners_count_from' => ['integer', 'nullable', 'min:1'],
-            'owners_count_to' => ['integer', 'nullable', 'min:1', 'gte:owners_count_from'],
+            'brand' => [
+                'integer', 
+                'nullable'
+            ],
+            'year_from' => [
+                'integer', 
+                'nullable', 
+                'min:'.config('truck.min_year'), 
+                'max:' . date('Y')
+            ],
+            'year_to' => [
+                'integer',
+                'nullable', 
+                'min:'.request('year_from'), 
+                'max:' . date('Y')
+            ],
+            'owner' => [
+                'string',
+                'nullable', 
+                new AlphaSpaces
+            ],
+            'owners_count_from' => [
+                'integer', 
+                'nullable', 
+                'min:0'
+            ],
+            'owners_count_to' => [
+                'integer', 
+                'nullable', 
+                'min:'.request('owners_count_from'), 
+            ],
         ];
     }
 
-    protected function failedValidation(Validator $validator) { 
+    protected function failedValidation(Validator $validator)
+    { 
         return redirect()->back()->withErrors($validator->errors())->withInput();
     }
 }

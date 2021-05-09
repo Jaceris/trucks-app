@@ -6,7 +6,7 @@
       <div class="form-group {{ $errors->has('brand') ? 'has-error' : '' }}">
         <label for="brand" class="control-label">{{ __('By brand') }}</label>
         <select class="form-control" id="brand" name="brand">
-          <option value="">{{ __('Select truck brand') }}</option>
+          <option value="" {{ old('brand') ? 'selected' : ''}}>{{ __('Select truck brand') }}</option>
             @foreach($brands as $key => $brand)
               <option value="{{ $key }}" {{ old('brand') == $key ? 'selected' : ''}}>{{ $brand }}</option>
             @endforeach
@@ -46,7 +46,7 @@
     <div class="col-lg-2">
       <div class="form-group {{ $errors->has('owners_count_from') ? 'has-error' : '' }}">
         <label for="owners_count_from" class="control-label">{{ __('Owners count from') }}</label>
-        <input class="form-control" step="1" min="1" name="owners_count_from" type="number" id="owners_count_from" value="{{ old('owners_count_from') }}">
+        <input class="form-control" step="1" min="0" name="owners_count_from" type="number" id="owners_count_from" value="{{ old('owners_count_from') }}">
         @error('owners_count_from')
           <div class="text-danger" >{{ $errors->first('owners_count_from') }}</div>
         @enderror
@@ -55,7 +55,7 @@
     <div class="col-lg-2">
       <div class="form-group {{ $errors->has('owners_count_to') ? 'has-error' : '' }}">
         <label for="owners_count_to" class="control-label">{{ __('Owners count to') }}</label>
-        <input class="form-control" step="1" min="1" name="owners_count_to" type="number" id="owners_count_to" value="{{ old('owners_count_to') }}">
+        <input class="form-control" step="1" min="0" name="owners_count_to" type="number" id="owners_count_to" value="{{ old('owners_count_to') }}">
         @error('owners_count_to')
           <div class="text-danger" >{{ $errors->first('owners_count_to') }}</div>
         @enderror

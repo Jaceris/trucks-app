@@ -12,8 +12,8 @@ use Kris\LaravelFormBuilder\FormBuilder;
 class TruckController extends Controller
 {
     /**
-     * @param  Illuminate\Http\Request
-     * @param  App\Services\TruckFilter;
+     * @param  Request $request
+     * @param  TruckFilter $truckFilter
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, TruckFilter $truckFilter)
@@ -30,8 +30,8 @@ class TruckController extends Controller
     /**
      * Validation for index filter
      * 
-     * @param  \App\Http\Requests\TruckFilterRequest
-     * @return \Illuminate\Http\Response
+     * @param  TruckFilterRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function filter(TruckFilterRequest $request)
     {
@@ -39,7 +39,7 @@ class TruckController extends Controller
     }
 
     /**
-     * @param  Kris\LaravelFormBuilder\FormBuilder
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
     public function create(FormBuilder $formBuilder)
@@ -55,7 +55,7 @@ class TruckController extends Controller
     }
 
     /**
-     * @param  Kris\LaravelFormBuilder\FormBuilder
+     * @param  FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
     public function store(FormBuilder $formBuilder)
