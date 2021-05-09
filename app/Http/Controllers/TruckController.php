@@ -11,8 +11,8 @@ use Kris\LaravelFormBuilder\FormBuilder;
 class TruckController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
+     * @param  App\Services\TruckFilter;
+     * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
     public function index(TruckFilter $truckFilter, Request $request)
@@ -27,8 +27,7 @@ class TruckController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * @param  Kris\LaravelFormBuilder\FormBuilder
      * @return \Illuminate\Http\Response
      */
     public function create(FormBuilder $formBuilder)
@@ -44,9 +43,8 @@ class TruckController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Kris\LaravelFormBuilder\FormBuilder
+     * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
     public function store(FormBuilder $formBuilder, Request $request)

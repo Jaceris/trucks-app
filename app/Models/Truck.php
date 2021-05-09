@@ -18,13 +18,14 @@ class Truck extends Model
         'comments' 
     ];
 
-    /**
-     * @param int $value
-     * @return string|null
-     */
     public function getBrandAttribute($value)
     {
         return Arr::get(config('truck.brands'), $value);
+    }
+
+    public function setOwnerAttribute($value)
+    {
+        return $this->attributes['owner'] = ucwords(strtolower($value));
     }
 
     public function scopeOfBrand($query, int $brand_id)
